@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
+import { Analytics } from "@vercel/analytics/next";
 import './globals.css';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import SmoothCursor from '../components/SmoothCursor';
-
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,6 +39,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <SmoothCursor />
+         <Analytics />
       </body>
     </html>
   );

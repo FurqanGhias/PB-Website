@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "Basic Next.js server",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "lucide-react": "^1.16.0",
     "motion": "^12.40.0",
     "next": "^16.2.6",
