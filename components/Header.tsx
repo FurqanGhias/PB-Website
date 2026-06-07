@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 import { ArrowRight, Menu, X } from 'lucide-react';
 
 type NavItem = { label: string; href: string };
@@ -17,7 +18,7 @@ const navItems: NavItem[] = [
 ];
 
 export function Header() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const overlayMotion = useMemo(
@@ -64,6 +65,7 @@ export function Header() {
       <div className="mx-auto flex h-full w-full max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-6 lg:px-8">
         <Link
           href="/"
+          data-cursor="interactive"
           className="flex min-w-0 items-center gap-3 rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506]"
           aria-label="Pitch Bhai home"
           onClick={() => setMobileOpen(false)}
@@ -85,6 +87,7 @@ export function Header() {
             <Link
               key={item.label}
               href={item.href}
+              data-cursor="interactive"
               className="relative rounded-[6px] text-sm font-medium text-[#B8B8BE] transition-colors duration-200 hover:text-[#F4F0E8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none after:absolute after:left-0 after:top-[calc(100%+6px)] after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-[linear-gradient(90deg,rgba(166,107,255,0.82),rgba(244,240,232,0.8))] after:transition-transform after:duration-200 hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-reduce:after:transition-none"
             >
               {item.label}
@@ -95,6 +98,8 @@ export function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/contact"
+            data-cursor="interactive"
+            data-cursor-label="Call"
             className="group hidden h-[42px] shrink-0 items-center justify-center gap-2 rounded-[8px] bg-[#F4F0E8] px-4 text-sm font-semibold text-[#050506] transition duration-200 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] sm:inline-flex motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >
             <span className="hidden sm:inline">Book a Free Strategy Call</span>
@@ -107,6 +112,8 @@ export function Header() {
 
           <Link
             href="/contact"
+            data-cursor="interactive"
+            data-cursor-label="Call"
             className="group inline-flex h-[42px] shrink-0 items-center justify-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.03] px-3 text-sm font-semibold text-[#F4F0E8] transition hover:border-white/16 hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] sm:hidden motion-reduce:transition-none"
           >
             Book Call
@@ -118,6 +125,7 @@ export function Header() {
 
           <button
             type="button"
+            data-cursor="interactive"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
@@ -149,6 +157,7 @@ export function Header() {
                   <Link
                     key={item.label}
                     href={item.href}
+                    data-cursor="interactive"
                     onClick={() => setMobileOpen(false)}
                     className="flex items-center justify-between rounded-[14px] px-4 py-3 text-[15px] font-medium text-[#F4F0E8] transition hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF]/60 motion-reduce:transition-none"
                   >
@@ -161,6 +170,8 @@ export function Header() {
               <div className="border-t border-white/8 p-4">
                 <Link
                   href="/contact"
+                  data-cursor="interactive"
+                  data-cursor-label="Call"
                   onClick={() => setMobileOpen(false)}
                   className="group inline-flex h-[48px] w-full items-center justify-center gap-3 rounded-[10px] bg-[#F4F0E8] px-5 text-sm font-semibold text-[#050506] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
                 >

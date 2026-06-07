@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useMemo, useRef } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 export type AnimatedTabsOption = {
   value: string;
@@ -23,7 +24,7 @@ export function AnimatedTabs({
   className = '',
   ariaLabel = 'Tabs',
 }: AnimatedTabsProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const layoutId = useId();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 

@@ -3,13 +3,14 @@
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, CheckCircle2, Mail } from 'lucide-react';
 import { AnimatedInput } from '../../components/AnimatedInput';
 import { Reveal } from '../../components/Reveal';
 
 export default function ContactPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -49,8 +50,6 @@ export default function ContactPage() {
           <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <Reveal>
               <div className="rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.88)_42%,rgba(5,5,6,0.96))] p-6 shadow-[0_26px_70px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-8">
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" />
-
                 <div className="grid gap-4">
                   <Link
                     href="mailto:hello@pitchbhai.com?subject=Book%20a%20Free%20Strategy%20Call"
@@ -95,8 +94,6 @@ export default function ContactPage() {
 
             <Reveal>
               <div className="rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.9)_42%,rgba(5,5,6,0.96))] p-6 shadow-[0_26px_70px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] sm:p-8">
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" />
-
                 {!submitted ? (
                   <form onSubmit={onSubmit} className="relative">
                     <div className="grid gap-4">

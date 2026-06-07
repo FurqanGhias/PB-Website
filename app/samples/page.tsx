@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, Check, LayoutGrid, Map, PenLine, Target } from 'lucide-react';
 import { Reveal, RevealItem, RevealStagger } from '../../components/Reveal';
 
@@ -28,7 +29,7 @@ const samples = [
 ];
 
 export default function SamplesPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <main className="bg-[#050506] text-[#F4F0E8]">
@@ -57,6 +58,8 @@ export default function SamplesPage() {
             {samples.map(({ title, body, icon: Icon, type }, index) => (
               <RevealItem key={title}>
                 <motion.article
+                  data-cursor="view"
+                  data-cursor-label="View"
                   whileHover={shouldReduceMotion ? undefined : { y: -6 }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.18, ease: 'easeOut' }}
                   className="group relative h-full overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.84)_42%,rgba(5,5,6,0.94))] p-6 shadow-[0_24px_64px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] transition-colors hover:border-white/16 sm:p-7 motion-reduce:transform-none"

@@ -2,7 +2,8 @@
 
 import { useRef } from 'react';
 import { clamp } from 'popmotion';
-import { motion, useInView, useReducedMotion } from 'motion/react';
+import { motion, useInView } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 type AnimatedProgressBarProps = {
   value: number;
@@ -29,7 +30,7 @@ export function AnimatedProgressBar({
   ariaLabel = 'Progress',
   animateOnView = true,
 }: AnimatedProgressBarProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const barRef = useRef<HTMLDivElement | null>(null);
   const inView = useInView(barRef, { once: true, amount: 0.65 });
 

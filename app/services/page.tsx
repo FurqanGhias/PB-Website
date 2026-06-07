@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, Check, Layers3, PenTool, Rocket } from 'lucide-react';
 import { AnimatedTabs } from '../../components/AnimatedTabs';
 import { Reveal } from '../../components/Reveal';
@@ -61,7 +62,7 @@ const serviceCards = [
 type ServiceKey = (typeof serviceCards)[number]['key'];
 
 export default function ServicesPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [tab, setTab] = useState<ServiceKey>('strategy');
 
   const activeIndex = useMemo(() => serviceCards.findIndex((s) => s.key === tab), [tab]);
@@ -106,6 +107,8 @@ export default function ServicesPage() {
           <Reveal className="mt-10">
             <AnimatePresence mode="wait">
               <motion.article
+                data-cursor="view"
+                data-cursor-label="Open"
                 key={active.key}
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.99 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}

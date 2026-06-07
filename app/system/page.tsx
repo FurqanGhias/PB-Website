@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, Compass, Layers3, Megaphone, Share2, Target } from 'lucide-react';
 import { AnimatedTabs } from '../../components/AnimatedTabs';
 import { Reveal, RevealItem, RevealStagger } from '../../components/Reveal';
@@ -46,7 +47,7 @@ const steps = [
 ] as const;
 
 export default function SystemPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [tab, setTab] = useState<(typeof steps)[number]['key']>('position');
 
   const active = useMemo(() => steps.find((s) => s.key === tab) ?? steps[0], [tab]);
@@ -110,6 +111,7 @@ export default function SystemPage() {
           <Reveal className="mt-10">
             <AnimatePresence mode="wait">
               <motion.article
+                data-cursor="interactive"
                 key={active.key}
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.99 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}

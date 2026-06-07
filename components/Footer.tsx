@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import FooterWordmark from './FooterWordmark';
 
 const companyLinks = [
   { label: 'About', href: '/about' },
@@ -113,10 +114,12 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
+<FooterWordmark />
         <div className="mt-10 border-t border-white/8 pt-6 text-[13px] text-[#6F6F78]">
           &copy; 2026 Pitch Bhai. All rights reserved.
         </div>
+
+        
       </div>
     </footer>
   );

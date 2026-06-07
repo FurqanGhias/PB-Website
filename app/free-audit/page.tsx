@@ -3,7 +3,8 @@
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { AnimatedInput } from '../../components/AnimatedInput';
 import { AnimatedProgressBar } from '../../components/AnimatedProgressBar';
@@ -18,7 +19,7 @@ const scores = [
 ];
 
 export default function FreeAuditPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [form, setForm] = useState({
     linkedinUrl: '',
     offer: '',

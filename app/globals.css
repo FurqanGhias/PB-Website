@@ -19,6 +19,7 @@
 :root {
   --font-inter: "Inter", sans-serif;
   --font-cormorant: "Cormorant Garamond", serif;
+  --font-display: var(--font-cormorant);
   --background: #050506;
   --surface: #0B0B0F;
   --surface-soft: #101014;
@@ -68,6 +69,236 @@ svg {
   color: #f5f1e8;
 }
 
+.smooth-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.smooth-cursor__dot,
+.smooth-cursor__ring,
+.smooth-cursor__glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.smooth-cursor__dot {
+  z-index: 3;
+  width: 6px;
+  height: 6px;
+}
+
+.smooth-cursor__dot > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: #f4f0e8;
+  box-shadow: 0 0 12px rgba(244, 240, 232, 0.2);
+}
+
+.smooth-cursor__ring {
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+}
+
+.smooth-cursor__ring > span {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border: 1px solid rgba(244, 240, 232, 0.35);
+  border-radius: 999px;
+  background: rgba(5, 5, 6, 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+    0 8px 28px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(2px);
+}
+
+.smooth-cursor__ring b {
+  max-width: 54px;
+  overflow: hidden;
+  color: #f4f0e8;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.smooth-cursor__glow {
+  z-index: 1;
+  width: 88px;
+  height: 88px;
+}
+
+.smooth-cursor__glow > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(166, 107, 255, 0.18) 0%, rgba(166, 107, 255, 0.07) 42%, transparent 72%);
+  filter: blur(10px);
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  html.smooth-cursor-active,
+  html.smooth-cursor-active body,
+  html.smooth-cursor-active a,
+  html.smooth-cursor-active button,
+  html.smooth-cursor-active [role="button"],
+  html.smooth-cursor-active [data-cursor] {
+    cursor: none !important;
+  }
+
+  html.smooth-cursor-active input,
+  html.smooth-cursor-active textarea,
+  html.smooth-cursor-active [contenteditable="true"] {
+    cursor: text !important;
+  }
+
+  html.smooth-cursor-active select {
+    cursor: default !important;
+  }
+}
+
+@keyframes pitchBhaiFluidGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  25% {
+    background-position: 55% 20%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  75% {
+    background-position: 45% 80%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.footer-wordmark {
+  position: relative;
+  width: 100%;
+  margin-top: 56px;
+  padding-top: 56px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  isolation: isolate;
+}
+
+.footer-wordmark__text,
+.footer-wordmark__glow {
+  display: block;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(44px, 16vw, 70px);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.065em;
+  word-spacing: 0.18em;
+}
+
+.footer-wordmark__text {
+  position: relative;
+  z-index: 2;
+  color: rgba(244, 240, 232, 0.14);
+}
+
+.footer-wordmark__text::after {
+  position: absolute;
+  inset: 0;
+  content: attr(data-text);
+  color: transparent;
+  background:
+    radial-gradient(circle at 20% 40%, #f4f0e8 0%, transparent 22%),
+    radial-gradient(circle at 45% 55%, #a66bff 0%, transparent 26%),
+    radial-gradient(circle at 70% 35%, #d7b8ff 0%, transparent 24%),
+    radial-gradient(circle at 88% 70%, #72da83 0%, transparent 22%),
+    linear-gradient(110deg, #f4f0e8, #a66bff, #d7b8ff, #72da83, #f4f0e8);
+  background-position: 0% 50%;
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+  pointer-events: none;
+  animation: pitchBhaiFluidGradient 4.8s ease-in-out infinite;
+}
+
+.footer-wordmark__glow {
+  position: absolute;
+  inset: 56px 0 auto 0;
+  z-index: 1;
+  opacity: 0.32;
+  pointer-events: none;
+  color: transparent;
+  background:
+    radial-gradient(circle at 20% 40%, #f4f0e8 0%, transparent 22%),
+    radial-gradient(circle at 45% 55%, #a66bff 0%, transparent 26%),
+    radial-gradient(circle at 70% 35%, #d7b8ff 0%, transparent 24%),
+    radial-gradient(circle at 88% 70%, #72da83 0%, transparent 22%),
+    linear-gradient(110deg, #f4f0e8, #a66bff, #d7b8ff, #72da83, #f4f0e8);
+  background-size: 260% 260%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(28px);
+  transform: translateZ(0);
+  animation: pitchBhaiFluidGradient 4.8s ease-in-out infinite;
+}
+
+@media (min-width: 641px) {
+  .footer-wordmark__text,
+  .footer-wordmark__glow {
+    font-size: clamp(64px, 13vw, 140px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-wordmark__text,
+  .footer-wordmark__glow {
+    font-size: clamp(86px, 12vw, 188px);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-wordmark {
+    margin-top: 40px;
+    padding-top: 40px;
+  }
+
+  .footer-wordmark__glow {
+    inset: 40px 0 auto 0;
+    filter: blur(18px);
+  }
+
+  .footer-wordmark__text,
+  .footer-wordmark__glow {
+    letter-spacing: -0.055em;
+    word-spacing: 0.16em;
+  }
+}
+
 :focus-visible {
   outline: 2px solid var(--color-accent-purple);
   outline-offset: 3px;
@@ -76,6 +307,12 @@ svg {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .footer-wordmark__text::after,
+  .footer-wordmark__glow {
+    animation: none;
+    background-position: 50% 50%;
   }
 
   *,

@@ -3,7 +3,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { useRef } from 'react';
 import { clamp } from 'popmotion';
-import { useReducedMotion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 type CursorGlowProps = {
   children: ReactNode;
@@ -18,7 +18,7 @@ export function CursorGlow({
   glow = 'rgba(166,107,255,0.10)',
   radius = 520,
 }: CursorGlowProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const ref = useRef<HTMLDivElement | null>(null);
 
   return (

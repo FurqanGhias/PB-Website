@@ -6,17 +6,24 @@ import Image from 'next/image';
 import {
   AlertCircle,
   ArrowRight,
+  BookOpen,
   Check,
   CircleGauge,
+  Columns3,
   Compass,
+  DoorClosed,
   EyeOff,
   FileSearch,
   Layers3,
+  ListChecks,
   Megaphone,
+  MessageCircleOff,
+  Newspaper,
   Play,
   Quote,
   ScanSearch,
   SearchCheck,
+  ShieldOff,
   ShieldCheck,
   Share2,
   Target,
@@ -25,7 +32,8 @@ import {
   UserSquare2,
   Zap,
 } from 'lucide-react';
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
+import { useHydratedReducedMotion } from '../components/useHydratedReducedMotion';
 import { AnimatedInput } from '../components/AnimatedInput';
 import { AnimatedProgressBar } from '../components/AnimatedProgressBar';
 import { AnimatedTabs } from '../components/AnimatedTabs';
@@ -75,18 +83,22 @@ const consequences = [
   {
     title: 'No Trust',
     body: 'People do not trust what they do not understand.',
+    icon: ShieldOff,
   },
   {
     title: 'No Conversations',
     body: 'No engagement means no relationships, no pipeline.',
+    icon: MessageCircleOff,
   },
   {
     title: 'No Opportunities',
     body: 'No authority signals = no inbound opportunities.',
+    icon: DoorClosed,
   },
   {
     title: 'No Leverage',
     body: 'You stay stuck in low-value conversations and price-sensitive deals.',
+    icon: TrendingDown,
   },
 ];
 
@@ -298,6 +310,37 @@ const strategicSamples = [
   },
 ];
 
+const resourceCards = [
+  {
+    title: 'Free Playbook',
+    description: 'A practical guide to turning founder expertise into a clear LinkedIn authority system.',
+    href: '#audit',
+    cta: 'Get the playbook',
+    icon: BookOpen,
+  },
+  {
+    title: 'LinkedIn Checklist',
+    description: 'Review the profile signals buyers use to understand, trust, and remember your expertise.',
+    href: '#audit',
+    cta: 'Use the checklist',
+    icon: ListChecks,
+  },
+  {
+    title: 'Content Pillar Template',
+    description: 'Organize your insights, frameworks, stories, and offers into a focused publishing rhythm.',
+    href: '#samples',
+    cta: 'View the template',
+    icon: Columns3,
+  },
+  {
+    title: 'Blog',
+    description: 'Read practical thinking on founder positioning, content strategy, distribution, and conversion.',
+    href: '/resources',
+    cta: 'Explore resources',
+    icon: Newspaper,
+  },
+];
+
 const auditChecklist = [
   'Profile clarity',
   'Authority signal',
@@ -355,7 +398,7 @@ const headlineLine = {
 };
 
 export default function Home() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const heroRef = useRef<HTMLElement | null>(null);
   const chartRef = useRef<HTMLDivElement | null>(null);
   const heroInView = useInView(heroRef, { once: true, amount: 0.25 });
@@ -400,17 +443,19 @@ export default function Home() {
                 initial="hidden"
                 animate={heroInView ? 'show' : 'hidden'}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.55 }}
-                className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.19em] text-[#F4F0E8]/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                className="mb-6 inline-flex max-w-full items-center justify-center gap-2 whitespace-normal rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-center text-[10px] font-semibold uppercase leading-4 tracking-[0.14em] text-[#F4F0E8]/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:px-4 sm:text-[11px] sm:tracking-[0.19em]"
               >
                 <span className="relative grid h-3 w-3 place-items-center rounded-full border border-[#A66BFF]/40 bg-[#A66BFF]/10" aria-hidden="true">
-                  {!shouldReduceMotion ? (
-                    <motion.span
-                      className="absolute h-3 w-3 rounded-full border border-[#A66BFF]/28"
-                      initial={{ scale: 1, opacity: 0 }}
-                      animate={heroInView ? { scale: [1, 1.9], opacity: [0.6, 0] } : { scale: 1, opacity: 0 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: 'easeOut' }}
-                    />
-                  ) : null}
+                  <motion.span
+                    className="absolute h-3 w-3 rounded-full border border-[#A66BFF]/28"
+                    initial={false}
+                    animate={
+                      heroInView && !shouldReduceMotion
+                        ? { scale: [1, 1.9], opacity: [0.6, 0] }
+                        : { scale: 1, opacity: 0 }
+                    }
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: 'easeOut' }}
+                  />
                   <span className="relative h-1.5 w-1.5 rounded-full bg-[#A66BFF]" />
                 </span>
                 Founder Branding Growth Partner
@@ -421,7 +466,7 @@ export default function Home() {
                 initial="hidden"
                 animate={heroInView ? 'show' : 'hidden'}
                 transition={{ staggerChildren: shouldReduceMotion ? 0 : 0.09, delayChildren: shouldReduceMotion ? 0 : 0.04 }}
-                className="max-w-full text-balance break-normal font-[family-name:var(--font-cormorant)] text-[clamp(42px,12vw,59px)] font-bold leading-[0.98] tracking-normal text-[#F4F0E8] sm:max-w-[640px] sm:text-[clamp(54px,7vw,59px)] lg:leading-[0.94]"
+                className="max-w-full text-balance break-normal font-[family-name:var(--font-cormorant)] text-[clamp(38px,10.5vw,44px)] font-bold leading-[0.98] tracking-normal text-[#F4F0E8] sm:max-w-[640px] sm:text-[clamp(54px,7vw,59px)] lg:leading-[0.94]"
               >
                  <motion.span
                    variants={headlineLine}
@@ -468,6 +513,8 @@ export default function Home() {
               >
                 <a
                   href="mailto:hello@pitchbhai.com?subject=Free%20Founder%20Brand%20Audit"
+                  data-cursor="interactive"
+                  data-cursor-label="Audit"
                   className="group inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-[8px] bg-[#F4F0E8] px-5 text-sm font-semibold text-[#050506] shadow-[0_18px_45px_rgba(244,240,232,0.08)] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:w-auto sm:min-w-[355px] sm:whitespace-nowrap"
                 >
                   Get My Free Founder Brand Audit
@@ -476,6 +523,8 @@ export default function Home() {
 
                 <button
                   type="button"
+                  data-cursor="interactive"
+                  data-cursor-label="Play"
                   className="inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-[8px] border border-white/10 bg-white/[0.03] px-4 text-sm font-medium text-[#F4F0E8] transition hover:border-white/16 hover:bg-white/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none sm:w-auto sm:whitespace-nowrap"
                 >
                   See How It Works
@@ -495,21 +544,20 @@ export default function Home() {
                 transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
                 className="mx-auto mt-9 grid gap-4 text-sm text-[#F4F0E8] sm:mx-0 sm:grid-cols-3 lg:max-w-[620px]"
               >
-                {trustPoints.map(({ label, icon: Icon }, index) => (
+                {trustPoints.map(({ label, icon: Icon }) => (
                   <li key={label} className="relative flex items-center justify-center gap-3 sm:grid sm:grid-cols-[40px_1fr] sm:items-start sm:justify-start sm:gap-x-3 sm:gap-y-0">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[8px] border border-white/10 bg-[#101014]/80 text-[#A66BFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <span className="block max-w-[170px] leading-6 text-[#F4F0E8]/92">{label}</span>
-                    {index < trustPoints.length - 1 ? (
-                      <span className="absolute right-[-10px] top-2 hidden h-[78px] w-px bg-white/12 sm:block" aria-hidden="true" />
-                    ) : null}
                   </li>
                 ))}
               </motion.ul>
             </div>
 
             <motion.div
+              data-cursor="view"
+              data-cursor-label="Explore"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.97 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.08, ease: 'easeOut' }}
@@ -538,20 +586,8 @@ export default function Home() {
 
                       <motion.div
                         whileHover={shouldReduceMotion ? undefined : { y: -1.5 }}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[#A4A4AA]"
+                        className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-[#A4A4AA]"
                       >
-                        <span className="relative h-1.5 w-1.5 rounded-full bg-[#72DA83]">
-                          {!shouldReduceMotion ? (
-                            <motion.span
-                              className="absolute inset-0 rounded-full bg-[#72DA83]/45"
-                              initial={{ scale: 1, opacity: 0 }}
-                              animate={
-                                heroInView ? { scale: [1, 2.2], opacity: [0.65, 0] } : { scale: 1, opacity: 0 }
-                              }
-                              transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: 'easeOut' }}
-                            />
-                          ) : null}
-                        </span>
                         Founder Profile
                       </motion.div>
                     </div>
@@ -642,14 +678,17 @@ export default function Home() {
                               >
                                 <div className="text-[11px] leading-4 text-[#6F6F78]">{label}</div>
                                 <div className="mt-2 text-sm font-medium text-[#F4F0E8]">{status}</div>
-                                {!shouldReduceMotion ? (
-                                  <motion.div
-                                    className="mt-2 h-px origin-left bg-gradient-to-r from-[#A66BFF]/60 via-[#A66BFF]/10 to-transparent"
-                                    initial={{ scaleX: 0.35, opacity: 0.6 }}
-                                    whileHover={{ scaleX: 1, opacity: 1 }}
-                                    transition={{ duration: 0.22, delay: index * 0.02, ease: 'easeOut' }}
-                                  />
-                                ) : null}
+                                <motion.div
+                                  className="mt-2 h-px origin-left bg-gradient-to-r from-[#A66BFF]/60 via-[#A66BFF]/10 to-transparent"
+                                  initial={false}
+                                  animate={{ scaleX: 0.35, opacity: 0.6 }}
+                                  whileHover={shouldReduceMotion ? undefined : { scaleX: 1, opacity: 1 }}
+                                  transition={{
+                                    duration: shouldReduceMotion ? 0 : 0.22,
+                                    delay: shouldReduceMotion ? 0 : index * 0.02,
+                                    ease: 'easeOut',
+                                  }}
+                                />
                               </motion.div>
                             ))}
                           </div>
@@ -836,7 +875,7 @@ export default function Home() {
               a content problem.
               <br />
               <span className="text-[#A66BFF]">
-                They have a <span className="italic">positioning</span> problem.
+                They have a <span className="font-extrabold not-italic">positioning</span> problem.
               </span>
             </h2>
 
@@ -905,18 +944,18 @@ export default function Home() {
 
               <div className="p-6 sm:p-8 lg:p-10">
                 <div className="grid gap-0">
-                  {consequences.map((item, index) => (
+                  {consequences.map(({ title, body, icon: Icon }, index) => (
                     <div
-                      key={item.title}
+                      key={title}
                       className={`grid gap-3 py-5 md:grid-cols-[200px_1fr] md:items-start md:gap-6 ${index < consequences.length - 1 ? 'border-b border-white/8' : ''}`}
                     >
                       <div className="flex items-center gap-3">
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#A66BFF]/14 text-[#A66BFF]">
-                          <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                          <Icon className="h-4 w-4" aria-hidden="true" />
                         </span>
-                        <span className="text-[18px] font-medium text-[#F4F0E8]">{item.title}</span>
+                        <span className="text-[18px] font-medium text-[#F4F0E8]">{title}</span>
                       </div>
-                      <p className="max-w-[280px] text-[15px] leading-[1.65] text-[#A4A4AA]">{item.body}</p>
+                      <p className="max-w-[280px] text-[15px] leading-[1.65] text-[#A4A4AA]">{body}</p>
                     </div>
                   ))}
                 </div>
@@ -1107,17 +1146,13 @@ export default function Home() {
           </motion.div>
 
           <div className="relative mt-16">
-            {!shouldReduceMotion ? (
-              <motion.div
-                initial={{ scaleX: 0, opacity: 0.4 }}
-                whileInView={{ scaleX: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.55, ease: 'easeOut' }}
-                className="absolute left-[9%] right-[9%] top-[62px] hidden h-px origin-left bg-gradient-to-r from-transparent via-white/12 to-transparent lg:block"
-              />
-            ) : (
-              <div className="absolute left-[9%] right-[9%] top-[62px] hidden h-px bg-gradient-to-r from-transparent via-white/12 to-transparent lg:block" />
-            )}
+            <motion.div
+              initial={false}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: 'easeOut' }}
+              className="absolute left-[9%] right-[9%] top-[62px] hidden h-px origin-left bg-gradient-to-r from-transparent via-white/12 to-transparent lg:block"
+            />
 
             <div className="grid gap-4 lg:grid-cols-5">
               {trustSystemSteps.map(({ title, body, output, icon: Icon }, index) => (
@@ -1157,7 +1192,7 @@ export default function Home() {
             transition={{ duration: shouldReduceMotion ? 0 : 0.52, delay: shouldReduceMotion ? 0 : 0.08 }}
             className="mt-10 rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(11,11,15,0.86))] px-6 py-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:px-8"
           >
-            <p className="font-[family-name:var(--font-cormorant)] text-[clamp(28px,3.8vw,42px)] font-bold leading-[1.12] text-[#F4F0E8]">
+            <p className="font-[family-name:var(--font-cormorant)] text-[clamp(25px,3.2vw,36px)] font-bold leading-[1.14] text-[#F4F0E8]">
               We don&apos;t chase vanity metrics.
               <br />
               We build trust that compounds.
@@ -1471,6 +1506,8 @@ export default function Home() {
           >
             <AnimatePresence mode="wait">
               <motion.article
+                data-cursor="view"
+                data-cursor-label="Open"
                 key={serviceTab}
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.99 }}
                 animate={shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
@@ -1587,9 +1624,11 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 lg:grid-cols-12 lg:[grid-template-rows:repeat(2,minmax(0,1fr))]">
             {strategicSamples.map(({ title, body, cta, type }, index) => (
               <motion.article
+                data-cursor="view"
+                data-cursor-label="View"
                 key={title}
                 initial="hidden"
                 whileInView="show"
@@ -1597,11 +1636,13 @@ export default function Home() {
                 variants={fadeUp}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : index * 0.07 }}
                 whileHover={shouldReduceMotion ? undefined : { y: -6 }}
-                className="group relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.84)_42%,rgba(5,5,6,0.94))] p-6 shadow-[0_24px_64px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] transition-colors hover:border-white/16 sm:p-7"
+                className={`group relative h-full overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.84)_42%,rgba(5,5,6,0.94))] p-6 shadow-[0_24px_64px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] transition-colors hover:border-white/16 sm:p-7 ${
+                  index === 0 ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5'
+                }`}
               >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" />
 
-                <div className="relative">
+                <div className="relative flex h-full flex-col">
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#A66BFF]">
                       Sample {String(index + 1).padStart(2, '0')}
@@ -1616,7 +1657,7 @@ export default function Home() {
                   </h3>
                   <p className="mt-4 max-w-[330px] text-[16px] leading-[1.7] text-[#A4A4AA]">{body}</p>
 
-                  <div className="mt-8 rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(5,5,6,0.56))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] sm:p-5">
+                  <div className="mb-7 mt-8 rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(5,5,6,0.56))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] sm:p-5">
                     {type === 'headline' ? (
                       <div className="space-y-4">
                         <div className="relative overflow-hidden rounded-[14px] border border-white/10 bg-black/20">
@@ -1707,7 +1748,7 @@ export default function Home() {
 
                   <a
                     href="mailto:hello@pitchbhai.com?subject=Strategic%20Samples"
-                    className="group mt-7 inline-flex h-[48px] items-center gap-3 rounded-[8px] border border-white/10 bg-white/[0.035] px-4 text-sm font-semibold text-[#F4F0E8] transition hover:border-white/16 hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none"
+                    className="group mt-auto inline-flex h-[48px] w-fit items-center gap-3 rounded-[8px] border border-white/10 bg-white/[0.035] px-4 text-sm font-semibold text-[#F4F0E8] transition hover:border-white/16 hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none"
                   >
                     {cta}
                     <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
@@ -1950,6 +1991,9 @@ export default function Home() {
             <h2 className="mt-7 font-[family-name:var(--font-cormorant)] text-[clamp(40px,7vw,59px)] font-bold leading-[1.04] tracking-normal text-[#F4F0E8]">
               Questions founders ask before working with us.
             </h2>
+            <p className="mx-auto mt-6 max-w-[680px] text-[17px] leading-[1.72] text-[#A4A4AA]">
+              Clear answers about our process, fit, expectations, and how a founder brand grows from stronger signals.
+            </p>
           </motion.div>
 
           <motion.div
@@ -1971,15 +2015,10 @@ export default function Home() {
             transition={{ duration: shouldReduceMotion ? 0 : 0.55, delay: shouldReduceMotion ? 0 : 0.04 }}
             className="mt-14 grid gap-5 md:grid-cols-2"
           >
-            {[
-              { title: 'Free Playbook', href: '#audit', logo: '/logos/saas-labs.svg' },
-              { title: 'LinkedIn Checklist', href: '#audit', logo: '/logos/growthx.svg' },
-              { title: 'Content Pillar Template', href: '#samples', logo: '/logos/leanstart.svg' },
-              { title: 'Blog', href: '#footer', logo: '/logos/brandline.svg' },
-            ].map((card) => (
+            {resourceCards.map(({ title, description, href, cta, icon: Icon }) => (
               <a
-                key={card.title}
-                href={card.href}
+                key={title}
+                href={href}
                 className="group/resource relative overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(11,11,15,0.84))] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.04)] transition hover:border-white/16 hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A66BFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050506] motion-reduce:transition-none"
               >
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" />
@@ -1991,26 +2030,18 @@ export default function Home() {
                       <span className="h-2 w-2 rounded-full bg-[#A66BFF]" aria-hidden="true" />
                       Resource
                     </div>
-                    <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.02em] text-[#F4F0E8]">{card.title}</h3>
+                    <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.02em] text-[#F4F0E8]">{title}</h3>
                   </div>
 
-                  <Image
-                    src={card.logo}
-                    alt=""
-                    width={44}
-                    height={44}
-                    className="opacity-70 grayscale transition group-hover/resource:opacity-90 motion-reduce:transition-none"
-                  />
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] border border-white/10 bg-white/[0.035] text-[#A66BFF]">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
                 </div>
 
-                  <div className="relative mt-7 flex items-end gap-4">
-                    <div className="relative h-[120px] w-[92px] shrink-0">
-                      <div className="absolute inset-0 rounded-[16px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(11,11,15,0.92))] shadow-[0_22px_55px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.06)]" />
-                      <div className="absolute inset-y-0 left-0 w-[10px] rounded-l-[16px] bg-[linear-gradient(180deg,rgba(166,107,255,0.22),rgba(166,107,255,0.06))]" />
-                      <div className="absolute inset-x-4 top-5 h-px bg-white/10" />
-                      <div className="absolute inset-x-4 bottom-6 h-7 rounded-[10px] border border-white/10 bg-white/[0.03]" />
-                    </div>
+                <p className="relative mt-6 max-w-[480px] text-[15px] leading-[1.72] text-[#A4A4AA]">{description}</p>
 
+                <div className="relative mt-7 flex items-center justify-between gap-4 border-t border-white/8 pt-5">
+                  <span className="text-[13px] font-semibold text-[#F4F0E8]">{cta}</span>
                   <div className="flex min-w-0 items-center justify-end gap-4">
                     <ArrowRight className="h-4 w-4 shrink-0 text-[#A66BFF] transition-transform duration-200 group-hover/resource:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
                   </div>
@@ -2036,16 +2067,14 @@ export default function Home() {
             className="overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(11,11,15,0.9)_38%,rgba(5,5,6,0.96))] px-6 py-12 text-center shadow-[0_36px_100px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.05)] sm:px-8 sm:py-14 lg:px-14 lg:py-16"
           >
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" />
-            {!shouldReduceMotion ? (
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute left-1/2 top-[42%] h-[260px] w-[560px] -translate-x-1/2 rounded-full bg-[rgba(166,107,255,0.07)] blur-[130px]"
-                initial={{ opacity: 0, scale: 0.98 }}
-                whileInView={{ opacity: 0.26, scale: 1 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-              />
-            ) : null}
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-[42%] h-[260px] w-[560px] -translate-x-1/2 rounded-full bg-[rgba(166,107,255,0.07)] blur-[130px]"
+              initial={false}
+              whileInView={{ opacity: shouldReduceMotion ? 0.18 : 0.26, scale: 1 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: 'easeOut' }}
+            />
 
             <h2 className="mx-auto max-w-[920px] font-[family-name:var(--font-cormorant)] text-[clamp(42px,7vw,59px)] font-bold leading-[1.01] tracking-normal text-[#F4F0E8]">
               Stop posting to stay visible.

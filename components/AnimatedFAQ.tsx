@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 import { ChevronDown } from 'lucide-react';
 
 export type FAQItem = {
@@ -15,7 +16,7 @@ type AnimatedFAQProps = {
 };
 
 export function AnimatedFAQ({ items, className = '' }: AnimatedFAQProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [openIndex, setOpenIndex] = useState(-1);
   const baseId = useId();
 

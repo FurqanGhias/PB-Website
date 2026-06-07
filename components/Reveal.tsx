@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 type RevealProps = {
   children: ReactNode;
@@ -22,7 +23,7 @@ export function Reveal({
   once = true,
   amount = 0.25,
 }: RevealProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <motion.div
@@ -58,7 +59,7 @@ export function RevealStagger({
   once = true,
   amount = 0.25,
 }: RevealStaggerProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <motion.div
@@ -81,7 +82,7 @@ export function RevealStagger({
 }
 
 export function RevealItem({ children, className = '' }: { children: ReactNode; className?: string }) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <motion.div

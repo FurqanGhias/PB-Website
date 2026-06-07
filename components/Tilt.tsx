@@ -3,7 +3,8 @@
 import type { ReactNode } from 'react';
 import { useRef } from 'react';
 import { clamp, interpolate } from 'popmotion';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 type TiltProps = {
   children: ReactNode;
@@ -13,7 +14,7 @@ type TiltProps = {
 };
 
 export function Tilt({ children, className = '', maxTilt = 5, hoverScale = 1.01 }: TiltProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const ref = useRef<HTMLDivElement | null>(null);
 
   const rotateXRaw = useMotionValue(0);

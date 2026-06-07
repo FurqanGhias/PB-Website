@@ -2,7 +2,8 @@
 
 import type { InputHTMLAttributes } from 'react';
 import { useId, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from './useHydratedReducedMotion';
 
 type AnimatedInputProps = {
   label: string;
@@ -14,7 +15,7 @@ type AnimatedInputProps = {
 export function AnimatedInput({ label, value, onChange, className = '', id, ...props }: AnimatedInputProps) {
   const autoId = useId();
   const inputId = id ?? autoId;
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = isFocused || value.trim().length > 0;
   const placeholder = props.placeholder ?? '';

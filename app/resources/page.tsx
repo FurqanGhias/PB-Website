@@ -1,7 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import { useHydratedReducedMotion } from '../../components/useHydratedReducedMotion';
 import { ArrowRight, BookOpen, FileText, Layers3, ListChecks, MessageSquare, CalendarDays } from 'lucide-react';
 import { Reveal, RevealItem, RevealStagger } from '../../components/Reveal';
 
@@ -45,7 +46,7 @@ const resources = [
 ];
 
 export default function ResourcesPage() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
     <main className="bg-[#050506] text-[#F4F0E8]">
@@ -99,6 +100,8 @@ export default function ResourcesPage() {
               return (
                 <RevealItem key={item.title}>
                   <motion.article
+                    data-cursor="view"
+                    data-cursor-label="Open"
                     whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                     transition={{ duration: shouldReduceMotion ? 0 : 0.18, ease: 'easeOut' }}
                     className="group relative h-full overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(11,11,15,0.86)_42%,rgba(5,5,6,0.94))] p-6 shadow-[0_24px_64px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.05)] transition-colors hover:border-white/16 motion-reduce:transform-none"
