@@ -197,7 +197,6 @@ svg {
   width: 100%;
   margin-top: 56px;
   padding: 56px;
-  padding-bottom: 10px;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   isolation: isolate;
